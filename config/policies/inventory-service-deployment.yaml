@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-service
+  namespace: production
+  labels:
+    app: inventory-service
+    tier: catalog
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inventory-service
+  template:
+    metadata:
+      labels:
+        app: inventory-service
+    spec:
+      containers:
+        - name: inventory-api
+          image: ghcr.io/org/inventory-service:v1.2.4
+          ports:
+            - containerPort: 8083
+              name: http
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: CACHE_TTL_SECONDS
+              value: "600"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

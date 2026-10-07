@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: production
+  labels:
+    app: auth-service
+    tier: security
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+        - name: auth-api
+          image: ghcr.io/org/auth-service:v1.8.2
+          ports:
+            - containerPort: 8081
+              name: http
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: JWT_EXPIRY_SECONDS
+              value: "3600"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

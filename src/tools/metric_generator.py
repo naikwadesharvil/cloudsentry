@@ -105,7 +105,8 @@ class MetricGenerator:
         all_metrics.extend(culprit_metrics)
 
         # Peer healthy services in the distributed cluster
-        healthy_services = ["auth-service", "payment-service", "inventory-service"]
+        all_cluster_services = ["checkout-service", "auth-service", "payment-service", "inventory-service"]
+        healthy_services = [s for s in all_cluster_services if s != culprit_service]
         for svc in healthy_services:
             svc_metrics = self.generate_service_metrics(
                 service_name=svc,
