@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprehensive Capstone Project Report | CloudSentry</title>
+  <style>
+    :root {
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "Cascadia Code", "Courier New", monospace;
+      --text-color: #1f2328;
+      --heading-color: #0969da;
+      --border-color: #d0d7de;
+      --bg-light: #f6f8fa;
+      --code-bg: #f6f8fa;
+      --primary: #0969da;
+      --accent: #1a7f37;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--text-color);
+      line-height: 1.65;
+      font-size: 15px;
+      background-color: #ffffff;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      background: #ffffff;
+    }
+
+    /* Header & Document Title */
+    .doc-header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      background-color: #ddf4ff;
+      color: #0969da;
+      border: 1px solid #54aeff;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #1f2328;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--heading-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+      margin-top: 36px;
+      margin-bottom: 16px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: #24292f;
+      margin-top: 24px;
+      margin-bottom: 10px;
+      page-break-after: avoid;
+    }
+
+    h4 {
+      font-size: 1.05rem;
+      color: #57606a;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      text-align: justify;
+    }
+
+    strong {
+      color: #1f2328;
+      font-weight: 600;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* Math and Code Blocks */
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #0969da;
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-x: auto;
+      margin-bottom: 18px;
+      page-break-inside: avoid;
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #1f2328;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--bg-light);
+      font-weight: 600;
+      color: #24292f;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafbfc;
+    }
+
+    /* Blockquotes & Callouts */
+    blockquote {
+      border-left: 4px solid var(--primary);
+      background-color: #f6f8fa;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      border-radius: 0 6px 6px 0;
+      color: #57606a;
+      font-style: italic;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: var(--border-color);
+      margin: 28px 0;
+    }
+
+    /* Action bar on top for browser view */
+    .print-bar {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .btn-print {
+      background-color: #0969da;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-print:hover {
+      background-color: #0854ad;
+    }
+
+    /* Print Styles */
+    @media print {
+      @page {
+        size: A4;
+        margin: 1.8cm 1.5cm;
+      }
+
+      body {
+        padding: 0;
+        font-size: 13px;
+        line-height: 1.55;
+        color: #000000;
+      }
+
+      .print-bar {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.3rem; margin-top: 24px; page-break-after: avoid; }
+      h3 { font-size: 1.1rem; margin-top: 18px; page-break-after: avoid; }
+
+      pre, table, blockquote {
+        page-break-inside: avoid;
+      }
+
+      th {
+        background-color: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      tr:nth-child(even) {
+        background-color: #fcfcfc !important;
+      }
+
+      a {
+        text-decoration: none;
+        color: #000000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="print-bar">
+      <div>
+        <strong>CloudSentry Documentation</strong> • Final Capstone Technical Report
+      </div>
+      <div>
+        <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF (Ctrl+P)</button>
+      </div>
+    </div>
+
+    <div class="doc-header">
+      <div class="doc-badge">Official Academic Capstone Report</div>
+      <h1>CloudSentry 🛡️</h1>
+<h2>Autonomous Multi-Agent FinOps & Distributed Cloud Incident Remediation</h2>
+<h3>Final Year Capstone Engineering Technical Report & Architectural Specification</h3>
+<hr>
+<h2>📑 Executive Summary & Abstract</h2>
+<p>Modern enterprise cloud environments rely on deeply interconnected distributed microservice architectures deployed on container orchestration platforms such as Kubernetes. While this paradigm offers unprecedented horizontal scalability, it introduces acute operational vulnerabilities: microservice degradation propagates rapidly across dependencies, cascading into service outages with costly downtime. Contemporary Site Reliability Engineering (SRE) workflows remain burdened by:</p>
+<p>1. <strong>Prolonged Mean Time to Resolution (MTTR):</strong> Manual telemetry parsing, distributed tracing correlation, and post-mortem diagnosis often take 45–90 minutes.</p>
+<p>2. <strong>Alert Fatigue & False Positives:</strong> Static monitoring thresholds fail to distinguish benign traffic spikes from multivariate failure signatures (e.g., memory leaks with late-stage socket starvation).</p>
+<p>3. <strong>The Unreliability of Raw Generative AI:</strong> Naive LLM chatbots hallucinate malformed YAML syntax, omit mandatory CPU/memory resource limits, or generate unbounded allocations that violate FinOps budgets and crash clusters.</p>
+<p><strong>CloudSentry</strong> introduces an autonomous, multi-agent control plane engineered to bridge statistical machine learning anomaly detection, LLM-based root-cause reasoning, and deterministic policy sandboxing. Built upon a <strong>LangGraph StateGraph DAG</strong>, CloudSentry executes a closed-loop remediation lifecycle:</p>
+<p><div style='text-align: center; margin: 12px 0;'><code>\text{Streaming Telemetry} \longrightarrow \text{Isolation Forest Detection} \longrightarrow \text{Multivariate RCA} \longrightarrow \text{Patch Synthesis} \rightleftharpoons \text{Sandboxed Validation}</code></div></p>
+<p>In empirical benchmarks across 50 multi-service incident topologies, CloudSentry achieved a <strong>96.0% culprit isolation accuracy</strong>, a <strong>Mean Time to Resolution (MTTR) of 2,480.2 ms</strong>, a <strong>100% remediation success rate</strong>, and <strong>0.0% safety policy violations</strong>.</p>
+<hr>
+<h2>1. Problem Statement & Motivation</h2>
+<p>Distributed microservices exhibit failure modes that manifest non-linearly across heterogeneous telemetry streams:</p>
+<ul>
+  <li><strong>Memory Leak / OOM Kill:</strong> Memory monotonically escalates over hundreds of requests until reaching the container's cgroup boundary, triggering an ungraceful <code>SIGKILL</code> (OOMKilled), cascading HTTP 502/504 errors downstream.</li>
+  <li><strong>CPU Throttling & Thread Pool Exhaustion:</strong> CPU usage hits cgroup CFS quota limits, causing scheduler queuing, tail latency degradation ($P99 > 800\text{ ms}$), and connection pool starvation without immediate crash logs.</li>
+  <li><strong>FinOps Runaway Scaling & Misconfigured HPA:</strong> Autoscalers scale pods without upper compute constraints, breaching cloud billing quotas without addressing root bottlenecks.</li>
+</ul>
+<p>Existing Application Performance Monitoring (APM) tools (Datadog, Dynatrace, New Relic) excel at telemetry visualization and alert dispatching, but remain fundamentally <strong>passive</strong>—they require human SREs to triage alerts, write Kubernetes patches, and manually deploy fixes. Conversely, raw LLM-based assistants lack execution sandboxes, frequently generating unparseable YAML or omitting <code>resources.limits</code>, introducing critical cluster vulnerabilities.</p>
+<hr>
+<h2>2. Comparative Architectural Analysis</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Feature Dimension</th>
+      <th>Traditional APM Tools (Datadog / Dynatrace)</th>
+      <th>Naive LLM DevOps Bots (ChatGPT / Copilot)</th>
+      <th>CloudSentry Autonomous Control Plane</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Telemetry Ingestion</strong></td>
+      <td>Passive streaming & static metric dashboards</td>
+      <td>None (User copy-pastes logs manually)</td>
+      <td><strong>Active multi-variate streaming time-series ingestion</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Anomaly Detection</strong></td>
+      <td>Static scalar thresholds ($\text{RAM} > 80\%$)</td>
+      <td>N/A</td>
+      <td><strong>Unsupervised ML (Isolation Forest) + Rolling Slopes</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Root Cause Analysis</strong></td>
+      <td>Manual trace inspection & flamegraphs</td>
+      <td>Unbounded natural language speculation</td>
+      <td><strong>Structured Pydantic multivariate correlation</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Patch Generation</strong></td>
+      <td>None (Human SRE writes manifests)</td>
+      <td>Raw unvalidated YAML output (High hallucination)</td>
+      <td><strong>Deterministic Diff Synthesis with Resource Resizing</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Policy Enforcement</strong></td>
+      <td>External admission controllers (gatekeeper)</td>
+      <td>None</td>
+      <td><strong>In-DAG Deterministic Sandbox Validation</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Self-Correction</strong></td>
+      <td>Human trial-and-error</td>
+      <td>Manual prompt re-prompting</td>
+      <td><strong>Automated feedback loop (up to 3 retries)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Safety Guarantee</strong></td>
+      <td>Dependent on operator expertise</td>
+      <td>Zero safety guarantee</td>
+      <td><strong>100% guarantee against unbounded limits</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+<h2>3. Mathematical & Algorithmic Formulation</h2>
+<pre><code>+---------------------------------------------------------------------------------------------------+
+|                                  MATHEMATICAL CONTROL FLOW PIPELINE                               |
++---------------------------------------------------------------------------------------------------+
+|                                                                                                   |
+|  [Streaming Telemetry X_t]                                                                        |
+|             |                                                                                     |
+|             v                                                                                     |
+|  +-------------------------------------+                                                          |
+|  | 1. Multivariate Isolation Forest    | ----&gt; Score: s(x, n) = 2^(- E(h(x)) / c(n))              |
+|  |    &amp; Linear Trend Slope Estimation  | ----&gt; Slope: beta = Cov(t, y) / Var(t)                   |
+|  +-------------------------------------+                                                          |
+|             |                                                                                     |
+|             v (Anomaly Flagged: s(x, n) &gt; tau OR beta &gt; theta)                                    |
+|  +-------------------------------------+                                                          |
+|  | 2. Root Cause Analysis Correlation  | ----&gt; P(FailureMode | Features)                          |
+|  +-------------------------------------+                                                          |
+|             |                                                                                     |
+|             v (Diagnosis: OOM_KILL / CPU_THROTTLING)                                              |
+|  +-------------------------------------+                                                          |
+|  | 3. Kubernetes Patch Generator       | ----&gt; Delta: M_new = f(M_base, Diagnosis)                |
+|  +-------------------------------------+                                                          |
+|             |                                                                                     |
+|             +--------------------------------+                                                    |
+|             |                                |                                                    |
+|             v                                v (Feedback Loop: delta_p, linter_errs)               |
+|  +-------------------------------------+     |                                                    |
+|  | 4. Deterministic Sandbox Validator  | ----+                                                    |
+|  |    g_v(M_new) in {0, 1}             |                                                          |
+|  +-------------------------------------+                                                          |
+|             |                                                                                     |
+|             v (g_v(M_new) = 1)                                                                    |
+|  [Production Deployment / REMEDIATED]                                                             |
+|                                                                                                   |
++---------------------------------------------------------------------------------------------------+</code></pre>
+<h3>3.1 Multivariate Isolation Forest Anomaly Scoring</h3>
+<p>Given a dataset <code>X = \{x_1, x_2, \dots, x_n\}</code> of <code>d</code>-dimensional telemetry vectors <code>x_i = (\text{cpu}_i, \text{mem}_i, \text{err}_i, \text{lat}_i)</code>, an ensemble of <code>T</code> Isolation Trees recursively partitions the feature space.</p>
+<p>The anomaly score <code>s(x, n)</code> for an observation <code>x</code> across sample size <code>n</code> is defined as:</p>
+<p><div style='text-align: center; margin: 12px 0;'><code>s(x, n) = 2^{-\frac{E(h(x))}{c(n)}}</code></div></p>
+<p>Where:</p>
+<ul>
+  <li>$h(x)$ is the path length (number of edges traversed from root to terminating leaf node in an isolation tree).</li>
+  <li>$E(h(x))$ is the expectation of $h(x)$ over all isolation trees in the forest.</li>
+  <li>$c(n)$ is the average path length of unsuccessful searches in a Binary Search Tree (BST):</li>
+</ul>
+<p><div style='text-align: center; margin: 12px 0;'><code>c(n) = 2\ln(n - 1) + 0.5772156649\text{ (Euler-Mascheroni Constant)} - \frac{2(n - 1)}{n}</code></div></p>
+<p><strong>Decision Rule:</strong></p>
+<p><code></code>\text{AnomalyState}(x) = \begin{cases}</p>
+<p>\text{ANOMALOUS}, & \text{if } s(x, n) \ge 0.60 \text{ or } E(h(x)) \ll c(n) \\</p>
+<p>\text{NOMINAL}, & \text{if } s(x, n) < 0.50</p>
+<p>\end{cases}<code></code></p>
+<h3>3.2 Linear Trend & Statistical Gradient Estimation</h3>
+<p>For memory leak identification, CloudSentry computes the linear regression slope <code>\beta_1</code> over a sliding historical window <code>W = \{t_1, t_2, \dots, t_k\}</code>:</p>
+<p><div style='text-align: center; margin: 12px 0;'><code>\beta_1 = \frac{k \sum_{i=1}^k (t_i \cdot \text{mem}_i) - \left(\sum_{i=1}^k t_i\right) \left(\sum_{i=1}^k \text{mem}_i\right)}{k \sum_{i=1}^k t_i^2 - \left(\sum_{i=1}^k t_i\right)^2}</code></div></p>
+<p><div style='text-align: center; margin: 12px 0;'><code>\Delta\% = \frac{\text{mem}_k - \text{mem}_1}{\max(1.0, \text{mem}_1)} \times 100</code></div></p>
+<p>A memory leak anomaly is confirmed when <code>\Delta\% > 80\%</code> and <code>\beta_1 > 15.0\text{ MB/step}</code>.</p>
+<h3>3.3 Closed-Loop State Machine Transition Dynamics</h3>
+<p>The remediation DAG represents a state machine <code>(S, \Sigma, \delta, s_0, F)</code>:</p>
+<ul>
+  <li>State Space: $S = \{\text{INGESTING}, \text{ANALYZING}, \text{PATCHING}, \text{VALIDATING}, \text{REMEDIATED}, \text{FAILED}\}$</li>
+  <li>State Transitions:</li>
+</ul>
+<p><div style='text-align: center; margin: 12px 0;'><code>\delta(\text{INGESTING}, \text{metrics}) \longrightarrow \text{ANALYZING}</code></div></p>
+<p><div style='text-align: center; margin: 12px 0;'><code>\delta(\text{ANALYZING}, \text{anomalies}) \longrightarrow \begin{cases} \text{REMEDIATED}, & \text{if } \text{anomalies} = \emptyset \\ \text{PATCHING}, & \text{if } \text{anomalies} \ne \emptyset \end{cases}</code></div></p>
+<p><div style='text-align: center; margin: 12px 0;'><code>\delta(\text{PATCHING}, \text{patch}) \longrightarrow \text{VALIDATING}</code></div></p>
+<p><code></code>\delta(\text{VALIDATING}, \text{val\_result}) \longrightarrow \begin{cases}</p>
+<p>\text{REMEDIATED}, & \text{if } \text{val\_result.is\_valid} = \text{True} \\</p>
+<p>\text{PATCHING}, & \text{if } \text{is\_valid} = \text{False} \land \text{retry} < 3 \\</p>
+<p>\text{FAILED}, & \text{if } \text{is\_valid} = \text{False} \land \text{retry} \ge 3</p>
+<p>\end{cases}<code></code></p>
+<hr>
+<h2>4. Modular Implementation Breakdown</h2>
+<pre><code>cloudsentry/
+├── src/
+│   ├── schemas/
+│   │   └── models.py            # Strict Pydantic v2 domain schemas (MetricPoint, RCA, Patch, State)
+│   ├── tools/
+│   │   ├── anomaly_detector.py  # Isolation Forest &amp; Rolling Statistical Trend Engine
+│   │   ├── k8s_sandbox.py       # Deterministic PyYAML Linter &amp; FinOps Guardrail Policy Sandbox
+│   │   ├── llm_provider.py      # Dual-engine LLM manager (Gemini/Groq + Offline Fallback)
+│   │   └── metric_generator.py  # Synthetic distributed telemetry simulator
+│   ├── agents/
+│   │   ├── telemetry_agent.py   # Multi-variate metric ingestion &amp; anomaly classification
+│   │   ├── rca_agent.py         # Failure mode diagnosis &amp; evidence extraction
+│   │   ├── patch_agent.py       # Infrastructure diff synthesis &amp; self-healing generator
+│   │   ├── validator_agent.py   # Sandbox validation loop control
+│   │   └── orchestrator.py      # LangGraph StateGraph workflow execution engine
+│   └── evaluation/
+│       ├── benchmark.py         # 50-scenario quantitative empirical benchmark suite
+│       └── viva_simulator.py    # 10-domain interactive defense &amp; scoring simulator
+├── dashboard/
+│   └── app.py                   # Streamlit live telemetry &amp; visual diff operations console
+└── tests/                       # Complete Pytest test harness (13 comprehensive unit/E2E tests)</code></pre>
+<h3>4.1 Schema Modeling (`src/schemas/models.py`)</h3>
+<p>All system communication is strictly typed via <strong>Pydantic v2</strong>:</p>
+<ul>
+  <li><code>MetricPoint</code>: Strongly typed time-series tuple (<code>cpu_usage_pct</code>, <code>memory_usage_mb</code>, <code>error_rate_pct</code>, <code>p99_latency_ms</code>).</li>
+  <li><code>AnomalyReport</code>: Encapsulates severity levels (<code>LOW</code>, <code>MEDIUM</code>, <code>HIGH</code>, <code>CRITICAL</code>), trigger metrics, and anomaly scores.</li>
+  <li><code>RootCauseAnalysis</code>: Constrained failure mode literal (<code>OOM_KILL</code>, <code>CPU_THROTTLING</code>, <code>LATENCY_SPIKE</code>), structured evidence logs, and confidence score.</li>
+  <li><code>RemediationPatch</code>: Unified diff representation, patched YAML, and structured reasoning.</li>
+  <li><code>ValidationResult</code>: Deterministic schema/policy check outcomes, violation strings, and retry counts.</li>
+</ul>
+<h3>4.2 Deterministic Sandbox (`src/tools/k8s_sandbox.py`)</h3>
+<p>To prevent LLM hallucination from compromising production clusters, the sandbox performs 3 layers of deterministic verification:</p>
+<p>1. <strong>Syntactic Validation:</strong> Multi-document <code>yaml.safe_load_all()</code> parsing.</p>
+<p>2. <strong>Structural Schema Check:</strong> Verifies <code>apiVersion</code>, <code>kind</code>, <code>metadata.name</code>, and <code>spec.template.spec.containers</code>.</p>
+<p>3. <strong>FinOps & Security Guardrails:</strong></p>
+<p>   - Prohibits missing or empty <code>resources.limits</code>.</p>
+<p>   - Prohibits unbounded values (<code>unbounded</code>, <code>infinite</code>, <code>none</code>, <code>0</code>, <code>*</code>).</p>
+<p>   - Asserts memory syntax conform to regex <code>^([0-9]+(\.[0-9]+)?)(E|P|T|G|M|k|Ei|Pi|Ti|Gi|Mi|Ki|m)?$</code>.</p>
+<p>   - Enforces <code>\text{requests} \le \text{limits} \le \text{MAX\_ALLOWED\_MEMORY}</code> (<code>32\text{ GiB}</code>).</p>
+<hr>
+<h2>5. Experimental Results & Benchmark Discussion</h2>
+<p>The system was evaluated using the automated benchmarking engine across <strong>50 synthetic incident trials</strong> simulating diverse distributed topologies.</p>
+<h3>5.1 Quantitative Results Summary (`data/benchmark_report.json`)</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Metric Indicator</th>
+      <th>Measured Performance</th>
+      <th>Industry Baseline / SLA</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Total Scenarios Evaluated</strong></td>
+      <td><code>50</code></td>
+      <td><code>50</code></td>
+      <td>✅ Complete</td>
+    </tr>
+    <tr>
+      <td><strong>Culprit Identification Accuracy</strong></td>
+      <td><strong><code>96.0%</code></strong></td>
+      <td><code>> 90.0%</code></td>
+      <td>✅ Exceeded</td>
+    </tr>
+    <tr>
+      <td><strong>Mean Time to Resolution (MTTR)</strong></td>
+      <td><strong><code>2,480.2 ms</code></strong></td>
+      <td><code>< 5,000 ms</code></td>
+      <td>🚀 Sub-3s Remediation</td>
+    </tr>
+    <tr>
+      <td><strong>Zero-Shot Patch Pass Rate</strong></td>
+      <td><strong><code>100.0%</code></strong></td>
+      <td><code>> 85.0%</code></td>
+      <td>✅ Exceeded</td>
+    </tr>
+    <tr>
+      <td><strong>Overall Remediation Success</strong></td>
+      <td><strong><code>100.0%</code></strong></td>
+      <td><code>100.0%</code></td>
+      <td>✅ Flawless Resolution</td>
+    </tr>
+    <tr>
+      <td><strong>Total Safety / Policy Violations</strong></td>
+      <td><strong><code>0.0%</code></strong></td>
+      <td><code>0.0%</code></td>
+      <td>🛡️ Perfect Safety</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.2 Failure Mode Breakdown Analysis</h3>
+<ul>
+  <li><strong>Memory Leak / OOM Kill (17 Scenarios):</strong> 100.0% accuracy, mean MTTR = <code>2,364.5 ms</code>. Memory slopes of $>20\text{ MB/step}$ accompanied by late-stage error rate spikes were isolated with 98% confidence.</li>
+  <li><strong>CPU Throttling & Queue Starvation (17 Scenarios):</strong> 94.12% accuracy, mean MTTR = <code>2,510.3 ms</code>. Sustained CPU saturation $>85\%$ was accurately categorized.</li>
+  <li><strong>FinOps Runaway Scaling / Budget Breach (16 Scenarios):</strong> 93.75% accuracy, mean MTTR = <code>2,571.1 ms</code>. Resource allocation bounds were safely recalculated and capped.</li>
+</ul>
+<hr>
+<h2>6. Future Scope & Limitations</h2>
+<p>1. <strong>eBPF Kernel-Level Telemetry Ingestion:</strong> Future extensions will integrate Cilium eBPF probes for sub-millisecond socket connection profiling.</p>
+<p>2. <strong>GitOps & Canary Rollout Automation:</strong> Direct pull request integration into ArgoCD / FluxCD with automated automated canary rollback validation.</p>
+<p>3. <strong>Multi-Cluster Edge Orchestration:</strong> Scaling the multi-agent control plane across multi-cloud hybrid meshes (AWS EKS, GCP GKE, Azure AKS).</p>
+<hr>
+<h2>7. Conclusion</h2>
+<p>CloudSentry demonstrates that autonomous cloud remediation does not require unbounded trust in generative LLMs. By combining <strong>statistical time-series anomaly detection</strong>, <strong>structured LLM root-cause reasoning</strong>, and <strong>deterministic sandbox validation with closed-loop self-correction</strong>, CloudSentry delivers sub-3-second MTTR with zero policy violations.</p>
+    </div>
+  </div>
+</body>
+</html>

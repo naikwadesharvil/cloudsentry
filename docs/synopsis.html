@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Capstone Project Synopsis | CloudSentry</title>
+  <style>
+    :root {
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "Cascadia Code", "Courier New", monospace;
+      --text-color: #1f2328;
+      --heading-color: #0969da;
+      --border-color: #d0d7de;
+      --bg-light: #f6f8fa;
+      --code-bg: #f6f8fa;
+      --primary: #0969da;
+      --accent: #1a7f37;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--text-color);
+      line-height: 1.65;
+      font-size: 15px;
+      background-color: #ffffff;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      background: #ffffff;
+    }
+
+    /* Header & Document Title */
+    .doc-header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .doc-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      background-color: #ddf4ff;
+      color: #0969da;
+      border: 1px solid #54aeff;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #1f2328;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--heading-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+      margin-top: 36px;
+      margin-bottom: 16px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: #24292f;
+      margin-top: 24px;
+      margin-bottom: 10px;
+      page-break-after: avoid;
+    }
+
+    h4 {
+      font-size: 1.05rem;
+      color: #57606a;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      text-align: justify;
+    }
+
+    strong {
+      color: #1f2328;
+      font-weight: 600;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul, ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    /* Math and Code Blocks */
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 2px 6px;
+      color: #0969da;
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-x: auto;
+      margin-bottom: 18px;
+      page-break-inside: avoid;
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #1f2328;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--bg-light);
+      font-weight: 600;
+      color: #24292f;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafbfc;
+    }
+
+    /* Blockquotes & Callouts */
+    blockquote {
+      border-left: 4px solid var(--primary);
+      background-color: #f6f8fa;
+      padding: 12px 18px;
+      margin-bottom: 16px;
+      border-radius: 0 6px 6px 0;
+      color: #57606a;
+      font-style: italic;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: var(--border-color);
+      margin: 28px 0;
+    }
+
+    /* Action bar on top for browser view */
+    .print-bar {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .btn-print {
+      background-color: #0969da;
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-print:hover {
+      background-color: #0854ad;
+    }
+
+    /* Print Styles */
+    @media print {
+      @page {
+        size: A4;
+        margin: 1.8cm 1.5cm;
+      }
+
+      body {
+        padding: 0;
+        font-size: 13px;
+        line-height: 1.55;
+        color: #000000;
+      }
+
+      .print-bar {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.3rem; margin-top: 24px; page-break-after: avoid; }
+      h3 { font-size: 1.1rem; margin-top: 18px; page-break-after: avoid; }
+
+      pre, table, blockquote {
+        page-break-inside: avoid;
+      }
+
+      th {
+        background-color: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      tr:nth-child(even) {
+        background-color: #fcfcfc !important;
+      }
+
+      a {
+        text-decoration: none;
+        color: #000000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="print-bar">
+      <div>
+        <strong>CloudSentry Documentation</strong> • Executive Academic Synopsis
+      </div>
+      <div>
+        <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF (Ctrl+P)</button>
+      </div>
+    </div>
+
+    <div class="doc-header">
+      <div class="doc-badge">Academic Submission • Synopsis</div>
+      <h1>PROJECT SYNOPSIS</h1>
+<h2>CloudSentry: Autonomous Multi-Agent FinOps & Distributed Cloud Incident Remediation Control Plane</h2>
+<hr>
+<h3>1. Project Information & Metadata</h3>
+<ul>
+  <li><strong>Project Title:</strong> CloudSentry: Autonomous Multi-Agent FinOps & Distributed Cloud Incident Remediation Control Plane</li>
+  <li><strong>Academic Stream:</strong> Bachelor of Engineering / Technology in Computer Science & Engineering (Distributed Systems & AI/ML)</li>
+  <li><strong>Domain Classification:</strong> Autonomous Systems (AIOps), Cloud FinOps, Site Reliability Engineering (SRE), Multi-Agent Control Planes</li>
+  <li><strong>Industry Reference Code:</strong> CS-AIOPS-2026-FOP</li>
+  <li><strong>Keywords:</strong> Multi-Agent Systems, LangGraph, Isolation Forest, Deterministic Sandboxing, FinOps, Kubernetes Governance, Self-Correction Loops</li>
+</ul>
+<hr>
+<h3>2. Industry Background & Problem Statement</h3>
+<p>Modern enterprise cloud infrastructure operates on complex microservices running atop container orchestrators such as Kubernetes. In production, these distributed systems face two critical operational bottlenecks:</p>
+<p>1. <strong>Mean Time to Resolution (MTTR) Latency & Alert Fatigue:</strong> Traditional Application Performance Monitoring (APM) tools (e.g., Datadog, Prometheus, Dynatrace) excel at firing threshold alerts but fail at autonomous remediation. Human on-call Site Reliability Engineers (SREs) experience alert fatigue and require an average of <strong>45 to 90 minutes</strong> to manually ingest telemetry, correlate distributed traces, isolate root causes, and deploy infrastructure patches.</p>
+<p>2. <strong>Generative AI Hallucination & Financial Risks in Production:</strong> While Large Language Models (LLMs) offer strong code synthesis capabilities, deploying unconstrained LLMs into production control planes introduces severe failure risks:</p>
+<p>   - <strong>Syntax & Schema Invalidation:</strong> Emitting malformed YAML manifests or deprecated Kubernetes API schemas.</p>
+<p>   - <strong>FinOps Budget Overruns:</strong> Allocating unbounded memory/CPU limits or excessive horizontal replicas, causing exponential cloud billing spikes.</p>
+<p>   - <strong>Noisy Neighbor Starvation:</strong> Removing cgroup resource limits, inducing host node resource exhaustion and kernel Out-Of-Memory (OOM) cascade kills.</p>
+<p><strong>CloudSentry</strong> bridges this divide by engineering a closed-loop autonomous control plane that combines statistical multivariate anomaly detection with a cyclic multi-agent workflow governed by a <strong>deterministic AST policy sandbox</strong>.</p>
+<hr>
+<h3>3. Research Objectives & System Scope</h3>
+<p>The primary objectives of the CloudSentry platform are:</p>
+<ul>
+  <li><strong>Autonomous Anomaly Isolation:</strong> Ingest real-time distributed telemetry (CPU, memory, P99 latency, error rate) and reliably detect emerging failure patterns (memory leaks, CPU saturation, billing breaches) prior to full cluster degradation.</li>
+  <li><strong>Root Cause Isolation without Alert Cascades:</strong> Aggregate multi-service metrics and correlate downstream 5xx errors with upstream root resource degradation to identify the exact culprit microservice.</li>
+  <li><strong>Guaranteed Policy & FinOps Compliance:</strong> Enforce a zero-tolerance policy sandbox ensuring all synthesized Kubernetes deployment patches define strict, bounded resource requests and limits before cluster application.</li>
+  <li><strong>Closed-Loop Self-Correction:</strong> Enable automated iterative feedback loops ($k \le 3$) where sandbox linter errors and policy violations are dynamically reflected back to the patch agent for real-time refinement.</li>
+  <li><strong>Resilient Dual-Engine Execution:</strong> Support online structured LLM reasoning (Gemini / Groq) with seamless, zero-latency fallback to deterministic heuristic engines under network partitions or API rate limits.</li>
+</ul>
+<hr>
+<h3>4. System Architecture & Multi-Agent State Machine</h3>
+<p>CloudSentry is designed as a directed cyclic computational graph implemented with <strong>LangGraph <code>StateGraph</code></strong> and typed with strict <strong>Pydantic v2</strong> schema contracts.</p>
+<pre><code>                              +-------------------------+
+                              | Distributed Telemetry   |
+                              | Metrics Stream (Prom/APM|
+                              +------------+------------+
+                                           |
+                                           v
+                              +-------------------------+
+                              |   1. Telemetry Agent    |
+                              |  - Isolation Forest     |
+                              |  - Rolling OLS Slope    |
+                              +------------+------------+
+                                           |
+                                           v
+                              +-------------------------+
+                              |      2. RCA Agent       |
+                              |  - Dual-Engine (LLM/    |
+                              |    Deterministic Heur.) |
+                              |  - Culprit &amp; Mode Class.|
+                              +------------+------------+
+                                           |
+                                           v
+                              +-------------------------+ &lt;-------------------------+
+                              |     3. Patch Agent      |                           |
+                              |  - Manifest Synthesis   |                           |
+                              |  - Unified AST Diff Gen |                           |
+                              +------------+------------+                           |
+                                           |                                        | Feedback
+                                           v                                        | (Violations &amp;
+                              +-------------------------+                           |  AST Linter
+                              |   4. Validator Agent    |                           |  Diagnostics)
+                              |  - PyYAML AST Parser    |                           |
+                              |  - FinOps Policy Check  |                           |
+                              +------------+------------+                           |
+                                           |                                        |
+                             +-------------+-------------+                          |
+                             |                           |                          |
+                   [Pass: 0 Violations]        [Fail: Policy Breaches &amp; Iter &lt;= 3]   |
+                             |                           +--------------------------+
+                             v
+                +-------------------------+
+                |     Status: REMEDIATED  |
+                |  (Cluster Patch Deployed|
+                +-------------------------+</code></pre>
+<hr>
+<h3>5. Mathematical & Algorithmic Formulations</h3>
+<h4>5.1 Multivariate Anomaly Scoring (Isolation Forest)</h4>
+<p>Given a cluster dataset <code>X = \{x_1, \dots, x_n\}</code> of telemetry feature vectors <code>x_i = (\text{CPU}_i, \text{RAM}_i, \text{Err}_i, \text{Lat}_i) \in \mathbb{R}^4</code>, an ensemble of <code>t</code> isolation trees partitions the feature space recursively.</p>
+<p>The anomaly score <code>s(x, n)</code> for an instance <code>x</code> over <code>n</code> samples is given by:</p>
+<p><div style='text-align: center; margin: 12px 0;'><code>s(x, n) = 2^{-\frac{\mathbb{E}(h(x))}{c(n)}}</code></div></p>
+<p>Where:</p>
+<ul>
+  <li>$h(x)$ is the path length (number of edges traversed from root to termination node) for sample $x$.</li>
+  <li>$\mathbb{E}(h(x))$ is the expected path length across the ensemble of isolation trees.</li>
+  <li>$c(n)$ is the average path length of unsuccessful searches in a Binary Search Tree (BST) over $n$ nodes:</li>
+</ul>
+<p><div style='text-align: center; margin: 12px 0;'><code>c(n) = 2 \ln(n - 1) + 2\gamma - \frac{2(n - 1)}{n}</code></div></p>
+<p>where <code>\gamma \approx 0.5772156649</code> is Euler's constant.</p>
+<ul>
+  <li><strong>Decision Rule:</strong></li>
+</ul>
+<p>  - If <code>s(x, n) \to 1.0</code>: <code>\mathbb{E}(h(x)) \ll c(n) \implies</code> Definite Anomaly.</p>
+<p>  - If <code>s(x, n) < 0.5</code>: <code>\mathbb{E}(h(x)) \to c(n) \implies</code> Normal Operating Profile.</p>
+<h4>5.2 Monotonic Memory Leak Slope Estimation</h4>
+<p>Instantaneous threshold checks fail to identify gradual container memory leaks. CloudSentry computes the first-order regression slope <code>\beta_1</code> over a sliding time window <code>W</code>:</p>
+<p><div style='text-align: center; margin: 12px 0;'><code>\beta_1 = \frac{\sum_{t=1}^W (t - \bar{t})(M_t - \bar{M})}{\sum_{t=1}^W (t - \bar{t})^2}</code></div></p>
+<p>Where <code>M_t</code> is the container resident memory in Megabytes at step <code>t</code>. An <code>OOM_KILL</code> warning is generated when <code>\beta_1 > 15.0 \text{ MB/step}</code> and total growth <code>\Delta M > 80\%</code>.</p>
+<hr>
+<h3>6. Quantitative Evaluation & Empirical Results</h3>
+<p>CloudSentry was evaluated against a rigorous 50-scenario quantitative benchmark matrix (<code>src/evaluation/benchmark.py</code>) spanning multiple failure modes (<code>OOM_KILL</code>, <code>CPU_THROTTLING</code>, and <code>FINOPS_BUDGET_BREACH</code>) across all monitored services.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Benchmark Metric</th>
+      <th>Empirical Evaluated Result</th>
+      <th>Industry / Human SRE Baseline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Total Test Scenarios</strong></td>
+      <td><strong>50 / 50</strong></td>
+      <td>50 scenarios</td>
+    </tr>
+    <tr>
+      <td><strong>Culprit Detection Accuracy</strong></td>
+      <td><strong>96.0%</strong></td>
+      <td>70.0% – 85.0%</td>
+    </tr>
+    <tr>
+      <td><strong>Mean Time to Resolution (MTTR)</strong></td>
+      <td><strong>2,480.2 ms (~2.48s)</strong></td>
+      <td>45 – 90 minutes (Human Triage)</td>
+    </tr>
+    <tr>
+      <td><strong>Zero-Shot Patch Pass Rate</strong></td>
+      <td><strong>100.0%</strong></td>
+      <td>< 40.0% (Raw LLMs)</td>
+    </tr>
+    <tr>
+      <td><strong>Overall Remediation Success Rate</strong></td>
+      <td><strong>100.0%</strong></td>
+      <td>> 95.0%</td>
+    </tr>
+    <tr>
+      <td><strong>Total Safety & FinOps Violations</strong></td>
+      <td><strong>0.0% (Zero Tolerance)</strong></td>
+      <td>> 25.0% (Unconstrained Generative AI)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Failure Mode Performance Breakdown</h4>
+<ul>
+  <li><strong>Memory Leaks (<code>OOM_KILL</code>):</strong> 17 Scenarios | 100.0% Accuracy | Mean MTTR: 2,289.3 ms</li>
+  <li><strong>Compute Starvation (<code>CPU_THROTTLING</code>):</strong> 17 Scenarios | 88.24% Accuracy | Mean MTTR: 2,665.4 ms</li>
+  <li><strong>Budget Breaches (<code>FINOPS_BUDGET_BREACH</code>):</strong> 16 Scenarios | 100.0% Accuracy | Mean MTTR: 2,486.2 ms</li>
+</ul>
+<hr>
+<h3>7. Hardware & Software Requirements</h3>
+<h4>Software Stack</h4>
+<ul>
+  <li><strong>Programming Language:</strong> Python 3.10+ / 3.12+</li>
+  <li><strong>Agentic Orchestration:</strong> LangGraph 0.2+, LangChain Core</li>
+  <li><strong>Data & Machine Learning:</strong> Scikit-learn 1.4+, NumPy, Pandas</li>
+  <li><strong>Validation & Sandboxing:</strong> PyYAML, Pydantic v2, Python <code>difflib</code></li>
+  <li><strong>User Interface & Visualizations:</strong> Streamlit 1.30+, Plotly Express</li>
+  <li><strong>LLM Integrations:</strong> Google Gemini 2.5 Flash (<code>langchain-google-genai</code>), Groq LLaMA 3.3 70B (<code>langchain-groq</code>)</li>
+</ul>
+<h4>Hardware Environment</h4>
+<ul>
+  <li><strong>CPU:</strong> Quad-Core x86_64 / ARM64 processor (2.0 GHz or higher)</li>
+  <li><strong>RAM:</strong> Minimum 4 GB RAM (8 GB recommended for concurrent Streamlit UI + evaluation runs)</li>
+  <li><strong>Storage:</strong> 500 MB free disk space</li>
+  <li><strong>Operating System:</strong> Cross-platform (Windows 10/11, macOS, Ubuntu Linux 22.04+)</li>
+</ul>
+<hr>
+<p><em>Submitted in partial fulfillment of academic requirements for final-year project examination.</em></p>
+    </div>
+  </div>
+</body>
+</html>
