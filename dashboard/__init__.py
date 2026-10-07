@@ -1,0 +1,2 @@
+"""CloudSentry Dashboard package.
+"""
