@@ -1,0 +1,47 @@
+name: CloudSentry CI / CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-evaluate:
+    name: Test Suite & Benchmark Evaluation
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.13"]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install kaleido
+
+      - name: Run Full Pytest Suite (Unit, E2E, Fallbacks)
+        run: |
+          pytest tests/ -v --durations=10
+
+      - name: Execute Live CLI Demo Smoke Test
+        run: |
+          python run_demo.py --scenario OOM_KILL --steps 20
+
+      - name: Execute Quantitative Benchmark Suite (50 Scenarios)
+        run: |
+          python run_demo.py --eval
+
+      - name: Verify Viva Defense Simulator Automated Run
+        run: |
+          python run_demo.py --viva --auto

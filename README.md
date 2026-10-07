@@ -1,6 +1,9 @@
 # CloudSentry 🛡️
 ### Autonomous Multi-Agent FinOps & Distributed Cloud Incident Remediation
 
+[![CI](https://github.com/naikwadesharvil/cloudsentry/actions/workflows/ci.yml/badge.svg)](https://github.com/naikwadesharvil/cloudsentry/actions)
+[![Tests: 13 Passed](https://img.shields.io/badge/tests-13%20passed-success.svg)](#)
+[![Accuracy: 96.0%](https://img.shields.io/badge/accuracy-96.0%25-brightgreen.svg)](#)
 [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
 [![LangGraph](https://img.shields.io/badge/orchestration-LangGraph_StateGraph-orange.svg)](https://github.com/langchain-ai/langgraph)
 [![Streamlit](https://img.shields.io/badge/dashboard-Streamlit_v1.65-red.svg)](https://streamlit.io/)

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudSentry | Academic Presentation Deck</title>
+  <style>
+    :root {
+      --bg-color: #0d1117;
+      --card-bg: #161b22;
+      --border-color: #30363d;
+      --primary: #58a6ff;
+      --success: #3fb950;
+      --alert: #f85149;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent: #d29922;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+    }
+
+    /* Presentation Header & Navigation */
+    header {
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      background-color: #21262d;
+      color: var(--text);
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #30363d;
+      border-color: var(--primary);
+    }
+
+    .btn-primary {
+      background-color: #1f6feb;
+      border-color: #388bfd;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: #388bfd;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background-color: #21262d;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #58a6ff, #3fb950);
+      width: 8.33%;
+      transition: width 0.3s ease;
+    }
+
+    /* Main Slide Container */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 24px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1050px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2, h3 {
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; margin-bottom: 20px; }
+    h3 { font-size: 1.3rem; color: var(--text); }
+
+    p {
+      color: var(--text);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-left: 24px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    li strong {
+      color: #79c0ff;
+    }
+
+    pre {
+      background-color: #0d1117;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.95rem;
+      color: #58a6ff;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 10px 16px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #21262d;
+      color: var(--primary);
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .speaker-notes {
+      margin-top: 24px;
+      padding: 16px;
+      background-color: rgba(31, 111, 235, 0.08);
+      border-left: 4px solid var(--primary);
+      border-radius: 4px;
+      font-size: 0.95rem;
+      color: #a5d6ff;
+      display: none;
+    }
+
+    .speaker-notes.visible {
+      display: block;
+    }
+
+    footer {
+      background-color: var(--card-bg);
+      border-top: 1px solid var(--border-color);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Print to PDF Styling */
+    @media print {
+      body { background-color: #ffffff; color: #000000; }
+      header, footer, .progress-bar-container, .nav-controls { display: none; }
+      main { padding: 0; display: block; }
+      .slide {
+        display: block !important;
+        page-break-after: always;
+        break-after: page;
+        box-shadow: none;
+        border: 1px solid #cccccc;
+        margin-bottom: 20px;
+        background-color: #ffffff;
+        color: #000000;
+      }
+      h1, h2, h3 { color: #0969da; }
+      pre { background-color: #f6f8fa; border-color: #d0d7de; color: #1f2328; }
+      th { background-color: #f6f8fa; color: #0969da; }
+      th, td { border-color: #d0d7de; }
+      .speaker-notes { display: block !important; background-color: #f6f8fa; border-color: #0969da; color: #57606a; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span>🛡️</span> CloudSentry Capstone Presentation
+    </div>
+    <div class="nav-controls">
+      <span id="slideCounter" style="font-weight: 600; color: var(--text-muted); margin-right: 8px;">Slide 1 of 12</span>
+      <button class="btn" onclick="toggleNotes()">Toggle Notes (S)</button>
+      <button class="btn" onclick="prevSlide()">❮ Prev</button>
+      <button class="btn btn-primary" onclick="nextSlide()">Next ❯</button>
+    </div>
+  </header>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <main id="slideContainer">
+    <div class="slide" id="slide-0">
+  <h2>Slide 0: # CloudSentry 🛡️</h2>
+  <p>## Presentation Deck & Viva Defense Script</p>
+  <h3>Autonomous Multi-Agent FinOps & Distributed Cloud Incident Remediation</h3>
+  <p>---</p>
+  
+</div>
+
+<div class="slide" id="slide-1">
+  <h2>Slide 1: Title & Project Overview</h2>
+  <h3>Slide Title: CloudSentry: Autonomous Multi-Agent FinOps & Incident Remediation</h3>
+  <ul>
+    <li><strong>Subtitle:</strong> Self-Healing Kubernetes Control Plane with Deterministic Policy Sandboxing</li>
+    <li><strong>Presenter:</strong> Final Year Engineering Capstone Project</li>
+    <li><strong>Domain:</strong> Distributed Systems • Site Reliability Engineering (SRE) • Autonomous Multi-Agent AI</li>
+  </ul>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "Good morning, respected members of the evaluation panel. Today, we present CloudSentry—an autonomous, multi-agent control plane engineered to detect, diagnose, and remediate distributed microservice failures in sub-3 seconds without risking unvalidated LLM hallucinations in production clusters."</div>
+</div>
+
+<div class="slide" id="slide-2">
+  <h2>Slide 2: Industry Problem: Why Thresholds & Chatbots Fail</h2>
+  <h3>Slide Title: The SRE Crisis: MTTR Lag & Hallucination Hazards</h3>
+  <ul>
+    <li><strong>45–90 min MTTR:</strong> Manual triage across distributed metrics and trace logs costs enterprises millions in downtime.</li>
+    <li><strong>Alert Fatigue:</strong> Static threshold rules ($>80\%$ RAM) cannot distinguish normal organic traffic surges from insidious linear memory leaks.</li>
+    <li><strong>Raw LLM Vulnerabilities:</strong> Unconstrained generative AI assistants hallucinate malformed YAML syntax, omit mandatory cgroup resource limits, or generate unbounded resource allocations.</li>
+  </ul>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "In production Kubernetes clusters, microservice degradation propagates non-linearly. Standard APM tools like Datadog notify human engineers, but cannot remediate. Meanwhile, asking standard ChatGPT to generate a Kubernetes fix is dangerous—it frequently omits resource limits, risking node kernel panics and runaway cloud billing."</div>
+</div>
+
+<div class="slide" id="slide-3">
+  <h2>Slide 3: Proposed Solution: CloudSentry Architecture</h2>
+  <h3>Slide Title: CloudSentry: Closed-Loop Multi-Agent Control Plane</h3>
+  <ul>
+    <li><strong>LangGraph StateGraph DAG:</strong> Orchestrates specialized autonomous agents communicating through strict Pydantic v2 schemas.</li>
+    <li><strong>Dual-Engine Intelligence:</strong> Real-time LLM structured reasoning (Gemini / Groq) coupled with deterministic statistical offline fallbacks.</li>
+    <li><strong>Hard Policy Sandboxing:</strong> Every synthesized remediation manifest is strictly validated against FinOps & security policies before deployment.</li>
+<pre><code>Telemetry Stream ──> [Telemetry Agent] ──> [RCA Agent] ──> [Patch Agent] <──> [Validator Sandbox] ──> Production Fix</code></pre>
+  </ul>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "CloudSentry bridges the gap between statistical ML, LLM reasoning, and deterministic software engineering. Our system decomposes incident response into an autonomous directed acyclic graph (DAG) where no generated patch is ever deployed without passing our deterministic policy sandbox."</div>
+</div>
+
+<div class="slide" id="slide-4">
+  <h2>Slide 4: System Data Flow</h2>
+  <h3>Slide Title: End-to-End Control Plane Flow</h3>
+  <p>1. <strong>Streaming Telemetry Ingestion:</strong> Continuous sampling of CPU %, RAM MB, P99 Latency, and Error Rates.</p>
+  <p>2. <strong>Unsupervised Outlier Detection:</strong> Isolation Forest + Statistical Slope Gradient Estimation.</p>
+  <p>3. <strong>Multivariate RCA:</strong> Correlation of anomaly reports into concrete failure modes (<code>OOM_KILL</code>, <code>CPU_THROTTLING</code>, <code>LATENCY_SPIKE</code>).</p>
+  <p>4. <strong>Patch Synthesis:</strong> Resizing memory limits, request bounds, and compute allocations into unified diffs.</p>
+  <p>5. <strong>Sandbox Gate:</strong> Linter and FinOps policy validation enforcing resource limit compliance.</p>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "The diagram highlights our data flow. Metric points flow continuously from container runtimes. When degradation is flagged, the RCA Agent correlates the failure signature, the Patch Agent generates a targeted Kubernetes diff, and the Sandbox ensures 100% compliance."</div>
+</div>
+
+<div class="slide" id="slide-5">
+  <h2>Slide 5: Mathematical Formulation: Multivariate Anomaly Detection</h2>
+  <h3>Slide Title: Isolation Forest Anomaly Scoring & Linear Trend Slopes</h3>
+  <ul>
+    <li><strong>Isolation Forest Score:</strong></li>
+  </ul>
+  <p>$$s(x, n) = 2^{-\frac{E(h(x))}{c(n)}}$$</p>
+  <p>*Where $h(x)$ is tree path length and $c(n) = 2\ln(n - 1) + 0.5772156649 - \frac{2(n - 1)}{n}$*</p>
+  <ul>
+    <li><strong>Memory Leak Gradient ($\beta_1$):</strong></li>
+  </ul>
+  <p>$$\beta_1 = \frac{k \sum(t_i \cdot \text{mem}_i) - (\sum t_i)(\sum \text{mem}_i)}{k \sum t_i^2 - (\sum t_i)^2}$$</p>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "Rather than relying solely on arbitrary thresholds, CloudSentry utilizes Isolation Forests to isolate multivariate outliers across 4 telemetry dimensions simultaneously. For memory leaks, we compute the first derivative slope gradient: if memory grows with slope > 15 MB/step alongside error surges, a critical anomaly is triggered."</div>
+</div>
+
+<div class="slide" id="slide-6">
+  <h2>Slide 6: Agents 1 & 2: Telemetry Ingestion & Root Cause Analysis</h2>
+  <h3>Slide Title: Telemetry & RCA Agents</h3>
+  <ul>
+    <li><strong>Telemetry Agent (<code>src/agents/telemetry_agent.py</code>):</strong></li>
+    <li>Group-by service metric aggregation.</li>
+    <li>Generates structured <code>AnomalyReport</code> with impact ratings (<code>CRITICAL</code>, <code>HIGH</code>, <code>MEDIUM</code>, <code>LOW</code>).</li>
+    <li><strong>RCA Agent (<code>src/agents/rca_agent.py</code>):</strong></li>
+    <li>Correlates multi-service telemetry against known cloud incident signatures.</li>
+    <li>Classifies root failure mode: <code>OOM_KILL</code> vs <code>CPU_THROTTLING</code> vs <code>LATENCY_SPIKE</code>.</li>
+    <li>Calculates confidence score ($85\%-99\%$) with audit evidence logs.</li>
+  </ul>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "Agent 1 ingests time-series data and pinpoints anomalous services. Agent 2 performs multivariate root cause analysis. If LLM keys are configured, it uses structured LLM reasoning; if offline, it executes our deterministic statistical engine."</div>
+</div>
+
+<div class="slide" id="slide-7">
+  <h2>Slide 7: Agents 3 & 4: Patch Synthesis & Sandboxed Policy Validation</h2>
+  <h3>Slide Title: Patch Agent & Deterministic Sandbox</h3>
+  <ul>
+    <li><strong>Patch Agent (<code>src/agents/patch_agent.py</code>):</strong></li>
+    <li>Loads vulnerable baseline manifest (<code>checkout-service-deployment.yaml</code>).</li>
+    <li>Synthesizes corrected container limits (e.g., resizing RAM from <code>512Mi</code> to <code>2Gi</code>, CPU to <code>1000m</code>).</li>
+    <li>Formats unified diff with agent reasoning explanations.</li>
+    <li><strong>Validator Agent (<code>src/agents/validator_agent.py</code>):</strong></li>
+    <li>Executes <code>k8s_sandbox.py</code> using <code>pyyaml</code>.</li>
+    <li>Validates syntax, structure, and FinOps constraints: rejects missing limits or unbounded tags (<code>unbounded</code>, <code>infinite</code>, <code>none</code>, <code>0</code>).</li>
+  </ul>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "The Patch Agent generates the remediation YAML and diff. The Validator Agent acts as an immutable gatekeeper. If a patch attempts to allocate unbounded memory or malformed quantities, the sandbox rejects it immediately."</div>
+</div>
+
+<div class="slide" id="slide-8">
+  <h2>Slide 8: The Closed-Loop Self-Correction Mechanism</h2>
+  <h3>Slide Title: Self-Correction & Feedback Loop</h3>
+<pre><code>[Patch Candidate] ──> [Sandbox Validator]
+                              |
+                     Is Valid? (No) ──> Extract Linter Errors & Violations
+                              |                 |
+                              |                 v
+                              +──────── [Patch Agent Self-Corrects] (Attempt 2/3)
+                              |
+                     Is Valid? (Yes) ──> [Deploy & Status = REMEDIATED]</code></pre>
+  <ul>
+    <li><strong>Iterative Feedback:</strong> Linter errors and policy violations are fed directly back to the Patch Agent.</li>
+    <li><strong>Safety Bound:</strong> Up to 3 retry iterations allowed before escalating to human SREs.</li>
+  </ul>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "This feedback loop is our core reliability innovation. When the sandbox detects a violation, it doesn't crash—it passes exact error diagnostics back into the agent DAG, allowing the agent to self-heal its own patch before deployment."</div>
+</div>
+
+<div class="slide" id="slide-9">
+  <h2>Slide 9: Quantitative Benchmark Analysis (50 Scenarios)</h2>
+  <h3>Slide Title: Empirical Benchmark Performance</h3>
+  <p>| Evaluation Metric | Benchmark Result | Target SLA |</p>
+  <p>| :--- | :---: | :---: |</p>
+  <p>| **Total Incident Scenarios** | `50` | `50` |</p>
+  <p>| **Detection & Culprit Accuracy** | **`96.0%`** | `> 90.0%` |</p>
+  <p>| **Mean Time to Resolution (MTTR)** | **`2,480.2 ms`** | `< 5,000 ms` |</p>
+  <p>| **Zero-Shot Patch Pass Rate** | **`100.0%`** | `> 85.0%` |</p>
+  <p>| **Overall Remediation Success Rate** | **`100.0%`** | `100.0%` |</p>
+  <p>| **Total Safety Violations** | **`0.0%`** | `0.0%` |</p>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "We rigorously benchmarked CloudSentry across 50 simulated enterprise failure scenarios. The system achieved 96.0% culprit detection accuracy, an average MTTR of 2.48 seconds, 100% remediation success, and zero safety violations."</div>
+</div>
+
+<div class="slide" id="slide-10">
+  <h2>Slide 10: Live Ops Console Overview (Streamlit & Plotly)</h2>
+  <h3>Slide Title: Interactive Operations & Triage Dashboard</h3>
+  <ul>
+    <li><strong>Real-Time Health Badges:</strong> Visual indicators for <code>checkout-service</code>, <code>auth-service</code>, <code>payment-service</code>, <code>inventory-service</code>.</li>
+    <li><strong>4-Panel Telemetry Visualizer:</strong> Interactive Plotly graphs with shaded anomaly zones.</li>
+    <li><strong>DAG Progress Tracing:</strong> Visual step cards detailing Telemetry $\to$ RCA $\to$ Patch $\to$ Sandbox validation.</li>
+    <li><strong>Unified Diff Inspector & Sandbox Tester:</strong> Side-by-side YAML diff viewer and manual tester for examiners.</li>
+  </ul>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "Our Streamlit operations dashboard provides SREs with complete visual observability. SREs can simulate outages with one click, watch the multi-agent DAG execute in real-time, inspect color-coded YAML diffs, and test custom manifests in the live sandbox."</div>
+</div>
+
+<div class="slide" id="slide-11">
+  <h2>Slide 11: Real-World Business Impact & SRE ROI</h2>
+  <h3>Slide Title: Business Impact & Cloud ROI</h3>
+  <ul>
+    <li><strong>99.99% Uptime Protection:</strong> Reduces MTTR from 45 minutes to under 3 seconds.</li>
+    <li><strong>FinOps Cloud Cost Optimization:</strong> Prevents runaway autoscaling by enforcing strict container resource limits.</li>
+    <li><strong>Zero Alert Fatigue:</strong> Automates Tier-1 incident response, freeing engineers to focus on core platform engineering.</li>
+  </ul>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "By resolving common cloud incidents autonomously in under 3 seconds, CloudSentry saves hundreds of thousands of dollars in downtime penalties, eliminates alert fatigue, and enforces strict cloud financial governance."</div>
+</div>
+
+<div class="slide" id="slide-12">
+  <h2>Slide 12: Conclusion & Q&A</h2>
+  <h3>Slide Title: Key Takeaways & Open Defense</h3>
+  <ul>
+    <li><strong>Autonomous Multi-Agent Control:</strong> LangGraph orchestration + Pydantic v2 domain schemas.</li>
+    <li><strong>Deterministic Reliability:</strong> Zero LLM hallucination in production through sandbox validation.</li>
+    <li><strong>Empirical Excellence:</strong> 96% accuracy, 2.48s MTTR, 100% resolution rate.</li>
+  </ul>
+  <p><strong>Thank You! We now welcome questions from the evaluation committee.</strong></p>
+  <div class="speaker-notes"><b>🎙️ Speaker Notes:</b> "In summary, CloudSentry provides a robust, production-grade paradigm for autonomous cloud reliability. We thank the committee for their time and are ready to answer your questions."</div>
+</div>
+
+  </main>
+
+  <footer>
+    <div>Final Year Engineering Capstone • Autonomous Multi-Agent Systems & SRE FinOps</div>
+    <div>Keyboard Navigation: <b>←</b> / <b>→</b> or <b>Space</b> | Press <b>Ctrl+P</b> to Print PDF</div>
+  </footer>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const counter = document.getElementById('slideCounter');
+    const progressBar = document.getElementById('progressBar');
+
+    function updateSlide() {
+      slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === currentSlide);
+      });
+      counter.textContent = `Slide ${currentSlide + 1} of ${totalSlides}`;
+      progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function toggleNotes() {
+      const notes = document.querySelectorAll('.speaker-notes');
+      notes.forEach(n => n.classList.toggle('visible'));
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 's' || e.key === 'S') {
+        toggleNotes();
+      } else if (e.key === 'Home') {
+        currentSlide = 0;
+        updateSlide();
+      } else if (e.key === 'End') {
+        currentSlide = totalSlides - 1;
+        updateSlide();
+      }
+    });
+
+    updateSlide();
+  </script>
+</body>
+</html>
