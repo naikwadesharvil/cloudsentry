@@ -1,0 +1,28 @@
+# CloudSentry Kubernetes FinOps & Security Policies
+version: v1
+policies:
+  - name: enforce-resource-limits
+    description: All container workloads must have strict memory and CPU limits defined.
+    severity: CRITICAL
+    target_kinds:
+      - Deployment
+      - StatefulSet
+      - DaemonSet
+      - Pod
+    rules:
+      - field: spec.template.spec.containers[*].resources.limits.memory
+        required: true
+        prohibited_values: ["unbounded", "infinite", "none", "0", "null"]
+        max_allowed_mb: 32768
+      - field: spec.template.spec.containers[*].resources.limits.cpu
+        required: true
+        prohibited_values: ["unbounded", "infinite", "none", "0", "null"]
+        max_allowed_cores: 16.0
+
+  - name: enforce-resource-requests
+    description: Containers must define reasonable requests to ensure proper cluster scheduling.
+    severity: MEDIUM
+    rules:
+      - field: spec.template.spec.containers[*].resources.requests.memory
+        required: false
+        prohibited_values: ["unbounded", "infinite"]
