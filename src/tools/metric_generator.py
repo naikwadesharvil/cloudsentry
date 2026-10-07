@@ -61,6 +61,13 @@ class MetricGenerator:
                 latency = 60.0 + (750.0 if t > 12 else 0.0) + self.rng.normal(0, 15.0)
                 err = 0.2 + (5.0 if t > 14 else 0.0)
 
+            elif scenario in ["FINOPS_BUDGET_BREACH", "RUNAWAY_REPLICAS"]:
+                # Massive compute/memory runaway breach
+                cpu = min(98.0, 35.0 + (t * 3.2) + self.rng.normal(0, 3.0))
+                mem = 250.0 + (t * 85.0) + self.rng.normal(0, 10.0)
+                err = max(0.01, 0.05 + ((t / 20.0) * 12.0) if t > 12 else 0.1)
+                latency = 45.0 + ((t ** 1.8) * 2.0) + self.rng.normal(0, 5.0)
+
             else:  # HEALTHY
                 cpu = max(5.0, 22.0 + self.rng.normal(0, 4.0))
                 mem = max(100.0, 240.0 + self.rng.normal(0, 12.0))
