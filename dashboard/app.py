@@ -192,9 +192,9 @@ with st.sidebar:
     st.divider()
     col_btn1, col_btn2 = st.columns(2)
     with col_btn1:
-        trigger_btn = st.button("🚨 Run Remediation", use_container_width=True, type="primary")
+        trigger_btn = st.button("🚨 Run Remediation", width="stretch", type="primary")
     with col_btn2:
-        reset_btn = st.button("🔄 Reset Telemetry", use_container_width=True)
+        reset_btn = st.button("🔄 Reset Telemetry", width="stretch")
 
     if reset_btn:
         st.session_state.incident_active = False
@@ -398,7 +398,7 @@ fig.update_layout(
     legend=dict(orientation="h", yanchor="bottom", y=1.06, xanchor="right", x=1),
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 
 # -----------------------------------------------------------------------------
