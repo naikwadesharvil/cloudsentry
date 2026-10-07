@@ -10,6 +10,10 @@
 
 **CloudSentry** is a production-grade, multi-agent FinOps and autonomous incident remediation platform. It continuously monitors distributed cloud microservices, correlates multivariate streaming telemetry, isolates root cause failure signatures (e.g., OOM kills, CPU throttling, latency degradation), and synthesizes, validates, and self-heals Kubernetes remediation manifests within a sandboxed execution loop.
 
+<p align="center">
+  <img src="assets/dashboard_preview.png" alt="CloudSentry Ops Console & Telemetry Dashboard" width="850">
+</p>
+
 ---
 
 ## 🏛️ System Architecture
