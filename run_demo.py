@@ -99,10 +99,18 @@ def run_eval():
     print("[+] Report saved to: data/benchmark_report.json")
 
 
+def run_viva(auto_mode: bool = False):
+    """Launches the interactive or automated Viva Defense & Technical Interview Simulator."""
+    from src.evaluation.viva_simulator import run_simulator
+    run_simulator(auto_mode=auto_mode)
+
+
 def main():
     parser = argparse.ArgumentParser(description="CloudSentry One-Click Demo Runner")
     parser.add_argument("--ui", action="store_true", help="Launch Streamlit Web Dashboard")
     parser.add_argument("--eval", action="store_true", help="Run 50-scenario benchmark suite")
+    parser.add_argument("--viva", action="store_true", help="Run Viva Defense Simulator")
+    parser.add_argument("--auto", action="store_true", help="Run in automated demo mode (for viva simulator)")
     parser.add_argument("--scenario", type=str, default="OOM_KILL", choices=["OOM_KILL", "CPU_THROTTLING", "LATENCY_SPIKE", "HEALTHY"], help="Incident scenario")
     parser.add_argument("--service", type=str, default="checkout-service", help="Culprit service")
     parser.add_argument("--steps", type=int, default=20, help="Simulation steps")
@@ -113,6 +121,8 @@ def main():
         run_ui()
     elif args.eval:
         run_eval()
+    elif args.viva:
+        run_viva(auto_mode=args.auto)
     else:
         run_cli_demo(culprit_service=args.service, scenario=args.scenario, steps=args.steps)
 
